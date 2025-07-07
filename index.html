@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenNotes</title>
+    
+    <!-- Google Fonts: Poppins for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Main App Logic -->
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <div class="app-container" id="app-container">
+        <!-- ==== SIDEBAR ==== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">ZenNotes</h1>
+            </div>
+            <div class="sidebar-actions">
+                <button id="new-note-btn" class="sidebar-btn" title="New Note"><i class="fas fa-plus"></i><span>New Note</span></button>
+                <button id="theme-toggle-btn" class="sidebar-btn" title="Toggle Theme"><i class="fas fa-sun"></i><span>Toggle Theme</span></button>
+                <button id="focus-mode-btn" class="sidebar-btn" title="Focus Mode"><i class="fas fa-expand"></i><span>Focus Mode</span></button>
+            </div>
+             <div class="sidebar-section">
+                <h2 class="sidebar-title">Ambient Sounds</h2>
+                <div class="ambient-controls">
+                    <button class="ambient-btn" data-sound="rain" title="Toggle Rain Sound"><i class="fas fa-cloud-showers-heavy"></i></button>
+                    <button class="ambient-btn" data-sound="cafe" title="Toggle Cafe Sound"><i class="fas fa-mug-hot"></i></button>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Data</h2>
+                 <button id="export-btn" class="sidebar-btn-sub"><i class="fas fa-file-export"></i> Export All Notes</button>
+                 <label for="import-file" class="sidebar-btn-sub"><i class="fas fa-file-import"></i> Import Notes</label>
+                 <input type="file" id="import-file" accept=".json" style="display: none;">
+            </div>
+            <footer class="sidebar-footer">
+                <p>&copy; 2025 ZenNotes</p>
+            </footer>
+        </aside>
+
+        <!-- ==== NOTES LIST PANEL ==== -->
+        <section class="notes-list-panel">
+            <div class="notes-list-header">
+                <input type="text" id="search-input" class="search-input" placeholder="Search notes...">
+                <select id="sort-select" class="sort-select" title="Sort notes">
+                    <option value="modified-desc">Last Modified</option>
+                    <option value="created-desc">Newest First</option>
+                    <option value="created-asc">Oldest First</option>
+                    <option value="title-asc">Title (A-Z)</option>
+                    <option value="title-desc">Title (Z-A)</option>
+                </select>
+            </div>
+            <div id="tags-container" class="tags-container"></div>
+            <div id="notes-list" class="notes-list"></div>
+        </section>
+
+        <!-- ==== EDITOR PANEL ==== -->
+        <main class="editor-panel">
+            <div class="editor-header">
+                <input type="text" id="editor-title" class="editor-title-input" placeholder="Your Note Title...">
+                <div class="editor-actions">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="write">Write</button>
+                        <button class="tab-btn" data-tab="preview">Preview</button>
+                    </div>
+                    <button id="delete-note-btn" class="delete-btn" title="Delete Note"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+            <div class="editor-content">
+                <textarea id="editor-body" class="editor-body" placeholder="Start writing your thoughts here..."></textarea>
+                <div id="editor-preview" class="editor-preview markdown-body" style="display: none;"></div>
+            </div>
+             <div class="editor-footer">
+                <input type="text" id="editor-tags" class="editor-tags-input" placeholder="Tags (comma, separated)">
+                <div id="editor-meta" class="editor-meta">
+                    <!-- Word count and other meta will go here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- HTML Template for a single note item in the list -->
+    <template id="note-item-template">
+        <div class="note-item">
+            <h3 class="note-item-title"></h3>
+            <p class="note-item-snippet"></p>
+            <div class="note-item-tags"></div>
+            <span class="note-item-date"></span>
+        </div>
+    </template>
+    
+    <!-- Audio Elements for Ambient Sounds -->
+    <audio id="audio-rain" src="assets/rain.mp3" loop></audio>
+    <audio id="audio-cafe" src="assets/cafe.mp3" loop></audio>
+
+</body>
+</html>
