@@ -3,38 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZenNotes</title>
-    
-    <!-- Google Fonts: Poppins for headings, Inter for body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Main Stylesheet -->
+    <title>Letters</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Marked.js for Markdown Parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- Main App Logic -->
-    <script src="app.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
-<body>
+<body data-theme="dark">
 
-    <div class="app-container" id="app-container">
-        <!-- ==== SIDEBAR ==== -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1 class="logo">ZenNotes</h1>
+    <div id="splash-screen">
+        <h1>Letters</h1>
+        <p>A message is waiting for you.</p>
+        <button id="enter-btn">Click to Enter</button>
+    </div>
+
+    <div id="app-container">
+
+        <main id="home-page">
+            <div class="content-wrapper">
+                <h1>For Mamello</h1>
+                <p>I coded this for you.</p>
+                <button id="read-listen-btn" class="action-btn">Read / Listen</button>
             </div>
-            <div class="sidebar-actions">
-                <button id="new-note-btn" class="sidebar-btn" title="New Note"><i class="fas fa-plus"></i><span>New Note</span></button>
-                <button id="theme-toggle-btn" class="sidebar-btn" title="Toggle Theme"><i class="fas fa-sun"></i><span>Toggle Theme</span></button>
-                <button id="focus-mode-btn" class="sidebar-btn" title="Focus Mode"><i class="fas fa-expand"></i><span>Focus Mode</span></button>
+        </main>
+
+        <main id="message-page" class="hidden">
+            <div class="content-wrapper">
+                <button id="listen-btn" class="action-btn small">Listen to this Letter</button>
+                
+                <div id="message-text">
+                    <p><span id="line-1">Letters are old fashioned but I hope you don't mind me coding one.😅</span></p>
+                    
+                    <p><span id="line-2">I don't really know where to begin but I'll just start anyway 😅.</span> <span id="line-3">That day you gave me that bun, was literally the happiest day I had at that School.</span> <span id="line-4">I was a bit confused and happy at the same time, You said you wanted to thank me but I didn't really help with much, you did most of the work on your own.</span> <span id="line-5">I was actually startled the moment you said you bought something for me, that really made my day.</span> <span id="line-6">I started worrying though, when I heard about that little accident you had, I froze, "what do I do, what do I even gonna say", I'm sorry I didn't come to your rescue.</span></p>
+                    
+                    <p><span id="line-7">The truth is...</span></p>
+                    
+                    <p><span id="line-8">I like you, a lot.</span> <span id="line-9">I honestly want nothing more than to hear you talk about your favourite songs, your childhood experiences even if it's about work, what's even more heartwarming is hearing you giggle.</span></p>
+                    
+                    <p><span id="line-10">I know I sound idiotic right now, hell you might even think it's Illusive, but everything honestly makes sense when you're around.</span></p>
+                    
+                    <p><span id="line-11">I could have done way more than this to prove this fact but I'm running out of time.</span> <span id="line-12">I like you, and I really hope it's mutual.</span></p>
+                    
+                    <p><span id="line-13">You need only tap "Yes" or "No" at the bottom of this message then I'll know.</span></p>
+                    
+                    <p><span id="line-14">Or you could even say it is person, whichever you prefer</span></p>
+                    
+                    <p><span id="line-15">So yeah, See you soon 🙂</span></p>
+                </div>
+
+                <div id="response-buttons">
+                    <button id="btn-yes" class="response-btn yes">Yes</button>
+                    <button id="btn-no" class="response-btn no">No</button>
+                </div>
             </div>
+        </main>
+
+        <footer id="music-player">
+            <div id="track-info">
+                Now Playing: <span id="current-track-name"></span>
+            </div>
+            <div class="controls">
+                <button id="prev-btn">⏮</button>
+                <button id="play-pause-btn">▶️</button>
+                <button id="next-btn">⏭</button>
+            </div>
+            <div class="volume-control">
+                <span>🔈</span>
+                <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.5">
+                <span>🔊</span>
+            </div>
+        </footer>
+
+        <button id="settings-toggle-btn">⚙️</button>
+        <div id="settings-modal" class="hidden">
+            <div class="modal-content">
+                <button id="close-settings-btn">X</button>
+                <h2>Settings</h2>
+                
+                <div class="setting-item">
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select">
+                        <option value="system">Follow System</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <h3>Background Music</h3>
+                    <ul id="playlist-editor">
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop></audio>
+    <audio id="voice-message"></audio>
+
+</body>
+</html>
+</div>
              <div class="sidebar-section">
                 <h2 class="sidebar-title">Ambient Sounds</h2>
                 <div class="ambient-controls">
